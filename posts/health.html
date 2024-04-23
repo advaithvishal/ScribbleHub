@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Articles</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+    />
+    <link rel="stylesheet" href="category.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <a href="#">ScribbleHub</a>
+        </div>
+        <div class="nav-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+        <div class="theme-toggle">
+          <button id="themeButton"><i class="fas fa-moon"></i></button>
+        </div>
+      </nav>
+    </header>
+
+    <h1>Articles on Health and Wellness</h1>
+    <div id="articlesList"></div>
+
+    <!-- Article Modal -->
+    <div id="articleModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="Article Image" />
+        <h2 id="modalHeading"></h2>
+        <p id="modalContent"></p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section" id="about">
+          <h3>About Us</h3>
+          <p>Learn more about our website and our mission.</p>
+          <a href="javascript:void(0)">Read More</a>
+          <!-- About Us Modal -->
+          <div id="aboutModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>About ScribbleHub</h2>
+              <p>
+                ScribbleHub is a leading online platform that brings together
+                writers, bloggers, and readers from around the world. Our
+                mission is to provide a space for people to share their
+                thoughts, experiences, and stories through engaging and
+                informative articles.
+              </p>
+              <p>
+                At ScribbleHub, we believe in the power of words to inspire,
+                educate, and entertain. Our team of editors carefully curates a
+                wide range of articles from various categories, ensuring that
+                our readers have access to high-quality content.
+              </p>
+              <p>
+                Whether you're passionate about technology, travel, health and
+                wellness, or any other topic, you'll find a wealth of knowledge
+                and insights on our platform. We strive to create a community
+                where ideas can be shared, discussions can be fostered, and
+                knowledge can be freely exchanged.
+              </p>
+              <p>
+                Join us on this journey of discovery and become part of the
+                ScribbleHub family today!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-section" id="contact">
+          <h3>Contact Us</h3>
+          <p>Get in touch with us for any inquiries or feedback.</p>
+          <p>advaithyadiki@gmail.com</p>
+        </div>
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <p>&copy; 2023 Article Reader. All rights reserved.</p>
+    </footer>
+
+    <script>
+      const articlesList = document.getElementById("articlesList");
+      const category = "health"; // Change this to 'travel' or 'health' for other categories
+      const storageKey = `articles-${category}`;
+      let articles = JSON.parse(localStorage.getItem(storageKey)) || [];
+
+      // Function to generate sample articles
+      function generateSampleArticles() {
+        const sampleArticles = [
+        {
+            imageUpload:
+              "../images/The Benefits of Mindfulness Meditation.png",
+            heading: "The Benefits of Mindfulness Meditation",
+            content: "Mindfulness meditation is a practice that involves focusing your mind on the present moment while acknowledging and accepting your thoughts and feelings without judgment. Research has shown that regular mindfulness meditation can have numerous benefits for both physical and mental health. From reducing stress and anxiety to improving sleep quality and boosting immune function, mindfulness meditation has been associated with a wide range of positive outcomes. In this article, we explore the science behind mindfulness meditation and discuss how incorporating this practice into your daily routine can help you lead a happier, healthier life.",
+          },
+          {
+            imageUpload:
+              "../images/The Importance of Regular Exercise for Overall Health.jpg",
+            heading: "The Importance of Regular Exercise for Overall Health",
+            content: "Regular exercise is essential for maintaining good health and well-being. Not only does it help to strengthen your muscles and improve your cardiovascular health, but it also has numerous other benefits for both your physical and mental health. From reducing the risk of chronic diseases such as heart disease, diabetes, and cancer to improving mood and cognitive function, the benefits of regular exercise are vast and wide-ranging. In this article, we discuss the importance of incorporating exercise into your daily routine and explore different types of physical activity that you can enjoy to stay fit and healthy.",
+          },
+          {
+            imageUpload:
+              "../images/The Power of Positive Thinking How Attitude Affects Health.png",
+            heading: "The Power of Positive Thinking: How Attitude Affects Health",
+            content: "Positive thinking has been linked to better health outcomes and a higher quality of life. Research suggests that maintaining a positive attitude can help reduce stress, improve immune function, and increase resilience to adversity. In this article, we explore the science behind positive thinking and discuss practical strategies for cultivating a more positive outlook on life. From practicing gratitude and reframing negative thoughts to surrounding yourself with supportive people and engaging in activities that bring you joy, there are many ways to harness the power of positive thinking and improve your overall health and well-being.",
+          },
+          {
+            imageUpload:
+              "../images/The Benefits of a Healthy Diet for Long-Term Health.jpg",
+            heading: "The Benefits of a Healthy Diet for Long-Term Health",
+            content: "A healthy diet is essential for maintaining optimal health and well-being. Research has shown that eating a balanced diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats can help reduce the risk of chronic diseases such as heart disease, diabetes, and cancer. In this article, we explore the benefits of a healthy diet and discuss practical tips for making nutritious food choices. From meal planning and portion control to mindful eating and intuitive eating, there are many strategies you can use to adopt a healthier approach to eating and improve your long-term health.",
+          },
+          {
+            imageUpload:
+              "../images/The Importance of Mental Health Awareness.jpg",
+            heading: "The Importance of Mental Health Awareness",
+            content: "Mental health is just as important as physical health and should be treated with the same level of care and attention. Mental health awareness involves recognizing the signs and symptoms of mental illness, reducing stigma and discrimination, and promoting access to mental health services and support. In this article, we discuss the importance of mental health awareness and provide resources for individuals seeking information and support. From learning about different mental health conditions to practicing self-care and reaching out for help when needed, there are many ways to prioritize your mental health and well-being.",
+          },
+          {
+            imageUpload:
+              "../images/Stress Management Techniques for Better Health.jpg",
+            heading: "Stress Management Techniques for Better Health",
+            content:
+              "Stress is a natural response to life's challenges, but chronic stress can have detrimental effects on both physical and mental health. Learning to manage stress effectively is essential for maintaining overall health and well-being. There are various stress management techniques that individuals can use to reduce stress and promote relaxation.Mindfulness meditation, deep breathing exercises, progressive muscle relaxation, and guided imagery are examples of relaxation techniques that can help calm the mind and body. Engaging in regular physical activity, such as walking, yoga, or tai chi, can also help alleviate stress and improve mood.Additionally, establishing healthy boundaries, practicing time management skills, and seeking support from friends, family, or a therapist can all contribute to better stress management. It's essential to find strategies that work best for you and incorporate them into your daily routine to effectively cope with stress and promote overall health and well-being.",
+          },
+          {
+            imageUpload:
+              "../images/The Importance of Quality Sleep for Optimal Health.jpg",
+            heading: "The Importance of Quality Sleep for Optimal Health",
+            content:
+              "Sleep plays a vital role in overall health and well-being. It is during sleep that the body repairs and rejuvenates itself, consolidates memories, and regulates various physiological processes. Quality sleep is essential for cognitive function, mood regulation, immune function, and overall physical health.However, many individuals struggle with sleep-related issues, such as insomnia, sleep apnea, or poor sleep hygiene habits. Factors such as stress, irregular sleep schedules, excessive screen time, and poor sleep environments can all contribute to sleep disturbances.Adopting good sleep hygiene practices, such as maintaining a consistent sleep schedule, creating a relaxing bedtime routine, and optimizing your sleep environment, can help improve sleep quality. Avoiding caffeine, nicotine, and alcohol close to bedtime, as well as limiting screen time and exposure to blue light, can also promote better sleep.If sleep problems persist, it's essential to consult with a healthcare professional to rule out any underlying medical conditions and explore potential treatment options. By prioritizing sleep and adopting healthy sleep habits, individuals can optimize their overall health and well-being.",
+          },
+        ];
+
+        return sampleArticles;
+      }
+
+      // Function to display articles
+      function displayArticles(articles) {
+        articlesList.innerHTML = ""; // Clear previous articles
+
+        articles.forEach((article, index) => {
+          const articleElement = document.createElement("div");
+          articleElement.classList.add("article-card");
+          articleElement.innerHTML = `
+    <img src="${article.imageUpload}" alt="Article Image">
+    <h2>${article.heading}</h2>
+    <div class="buttons">
+      <button class="read-more">Read More</button>
+      <button class="delete">Delete</button>
+    </div>
+  `;
+          articlesList.appendChild(articleElement);
+
+          const readMoreButton = articleElement.querySelector(".read-more");
+          const deleteButton = articleElement.querySelector(".delete");
+
+          // Read More button click event
+          readMoreButton.addEventListener("click", () => {
+            const modal = document.getElementById("articleModal");
+            const modalImage = document.getElementById("modalImage");
+            const modalHeading = document.getElementById("modalHeading");
+            const modalContent = document.getElementById("modalContent");
+
+            modalImage.src = article.imageUpload;
+            modalHeading.textContent = article.heading;
+            modalContent.textContent = article.content;
+            modal.style.display = "block";
+          });
+
+          // Delete button click event
+          deleteButton.addEventListener("click", () => {
+            articles.splice(index, 1);
+            localStorage.setItem(storageKey, JSON.stringify(articles));
+            displayArticles(articles);
+          });
+        });
+      }
+
+      // Add new article
+      function addNewArticle(article) {
+        articles.push(article);
+        localStorage.setItem(storageKey, JSON.stringify(articles));
+        displayArticles(articles);
+      }
+
+      // Check if sample articles are already present in localStorage
+      const sampleArticles = generateSampleArticles();
+      const articlesInStorage =
+        JSON.parse(localStorage.getItem(storageKey)) || [];
+      const sampleArticlesInStorage = articlesInStorage.filter(
+        (article) =>
+          sampleArticles.findIndex(
+            (sampleArticle) => sampleArticle.heading === article.heading
+          ) !== -1
+      );
+
+      if (sampleArticlesInStorage.length !== sampleArticles.length) {
+        // Add missing sample articles to existing articles
+        const missingArticles = sampleArticles.filter(
+          (sampleArticle) =>
+            !sampleArticlesInStorage.find(
+              (article) => article.heading === sampleArticle.heading
+            )
+        );
+        articles = articlesInStorage.concat(missingArticles);
+        localStorage.setItem(storageKey, JSON.stringify(articles));
+      } else {
+        articles = articlesInStorage;
+      }
+
+      // Display articles
+      displayArticles(articles);
+
+      // Modal close button
+      const modal = document.getElementById("articleModal");
+      const closeBtn = document.getElementsByClassName("close")[0];
+
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // Close modal when clicked outside
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // Toggle navigation menu on smaller screens
+      const navToggle = document.querySelector(".nav-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+
+      navToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+      });
+
+      // Theme toggle
+      const themeButton = document.getElementById("themeButton");
+      const body = document.querySelector("body");
+
+      themeButton.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        themeButton.querySelector("i").classList.toggle("fa-moon");
+        themeButton.querySelector("i").classList.toggle("fa-sun");
+      });
+
+      // Show "About Us" modal
+      const aboutLinks = document.querySelectorAll(".footer-section a");
+
+      aboutLinks.forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault(); // Prevent default link behavior
+          document.getElementById("aboutModal").style.display = "block";
+        });
+      });
+
+      // Close "About Us" modal
+      const aboutModalCloseBtn = document
+        .getElementById("aboutModal")
+        .querySelector(".close");
+
+      aboutModalCloseBtn.addEventListener("click", () => {
+        document.getElementById("aboutModal").style.display = "none";
+      });
+
+      // Close modal when clicked outside
+      window.addEventListener("click", (event) => {
+        if (event.target == document.getElementById("aboutModal")) {
+          document.getElementById("aboutModal").style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
