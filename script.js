@@ -95,6 +95,18 @@ $(document).ready(function () {
       $("#articleModal").hide();
     }
   });
+
+  $(".news").submit(function (event) {
+    event.preventDefault(); // Prevent form submission
+
+    const emailInput = $(this).find("input[type='email']");
+    const emailValue = emailInput.val().trim();
+
+    if (emailValue !== "") {
+      alert("Congratulations!!! You have succesfully Subscribed to our newsletter");
+      emailInput.val(""); // Clear the input field after submission
+    }
+  });
 });
 
 // Show "About Us" modal
